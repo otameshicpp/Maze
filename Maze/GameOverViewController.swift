@@ -40,6 +40,7 @@ class GameOverViewController: UIViewController {
         
     }
     @IBAction func toTop(_ sender: Any) {
+        fromAppDelegate.option=10
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     @IBAction func toGameView(_ sender: Any) {

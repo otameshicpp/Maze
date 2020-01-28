@@ -14,6 +14,7 @@
 		621BBE5A2310C68400D02846 /* スクリーンショット 2019-08-24 10.12.02.png in Resources */ = {isa = PBXBuildFile; fileRef = 621BBE592310C68400D02846 /* スクリーンショット 2019-08-24 10.12.02.png */; };
 		621BBE5C2310C83000D02846 /* スクリーンショット 2019-08-24 10.19.10.png in Resources */ = {isa = PBXBuildFile; fileRef = 621BBE5B2310C83000D02846 /* スクリーンショット 2019-08-24 10.19.10.png */; };
 		62225EFE2311A200000CE814 /* MissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62225EFD2311A200000CE814 /* MissionViewController.swift */; };
+		626FB1D123E035E800CD6866 /* スクリーンショット 2019-08-24 10.19.10のコピー.png in Resources */ = {isa = PBXBuildFile; fileRef = 626FB1D023E035E800CD6866 /* スクリーンショット 2019-08-24 10.19.10のコピー.png */; };
 		6270C850231177AB00912F85 /* RuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6270C84F231177AB00912F85 /* RuleViewController.swift */; };
 		62A95FCC2311EECC004AA089 /* IMG_0488.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 62A95FCB2311EECC004AA089 /* IMG_0488.jpg */; };
 		62A95FCE2311EED3004AA089 /* IMG_0489.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 62A95FCD2311EED3004AA089 /* IMG_0489.jpg */; };
@@ -57,6 +58,7 @@
 		621BBE592310C68400D02846 /* スクリーンショット 2019-08-24 10.12.02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "スクリーンショット 2019-08-24 10.12.02.png"; sourceTree = "<group>"; };
 		621BBE5B2310C83000D02846 /* スクリーンショット 2019-08-24 10.19.10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "スクリーンショット 2019-08-24 10.19.10.png"; sourceTree = "<group>"; };
 		62225EFD2311A200000CE814 /* MissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionViewController.swift; sourceTree = "<group>"; };
+		626FB1D023E035E800CD6866 /* スクリーンショット 2019-08-24 10.19.10のコピー.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "スクリーンショット 2019-08-24 10.19.10のコピー.png"; path = "../../スクリーンショット 2019-08-24 10.19.10のコピー.png"; sourceTree = "<group>"; };
 		6270C84F231177AB00912F85 /* RuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleViewController.swift; sourceTree = "<group>"; };
 		62A95FCB2311EECC004AA089 /* IMG_0488.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_0488.jpg; sourceTree = "<group>"; };
 		62A95FCD2311EED3004AA089 /* IMG_0489.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_0489.jpg; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				62A95FCF2311EEDA004AA089 /* IMG_0487.jpg */,
 				62BAABAC2310EF3E00491103 /* スクリーンショット 2019-08-24 13.05.58.png */,
 				62BAABAA2310EEE300491103 /* スクリーンショット 2019-08-24 13.04.16.png */,
+				626FB1D023E035E800CD6866 /* スクリーンショット 2019-08-24 10.19.10のコピー.png */,
 				621BBE5B2310C83000D02846 /* スクリーンショット 2019-08-24 10.19.10.png */,
 				621BBE592310C68400D02846 /* スクリーンショット 2019-08-24 10.12.02.png */,
 				621BBE5523102D6400D02846 /* スクリーンショット 2019-08-23 23.18.24.png */,
@@ -277,6 +280,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				626FB1D123E035E800CD6866 /* スクリーンショット 2019-08-24 10.19.10のコピー.png in Resources */,
 				6218516B23CDC7B00061FCDE /* icon.png in Resources */,
 				62A95FD02311EEDA004AA089 /* IMG_0487.jpg in Resources */,
 				62E803D9230E69E3005AC3D5 /* LaunchScreen.storyboard in Resources */,
@@ -499,7 +503,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F26CQ29945;
 				INFOPLIST_FILE = Maze/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -518,7 +522,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = F26CQ29945;
 				INFOPLIST_FILE = Maze/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

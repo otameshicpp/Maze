@@ -38,6 +38,7 @@ class KekkaViewController: UIViewController {
     var clearnum: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("inKekka")
         let preVC = fromAppDelegate.ok
         if !preVC{
             usingCheckPointButton.isEnabled = false
@@ -71,7 +72,7 @@ class KekkaViewController: UIViewController {
         if scoretable[0] < scoretable[3] {
             highScore = true
         }
-        scoretable.sort { $0 > $1 }
+        scoretable.sort { $1 < $0 }
         number1.text = "1位 : "+String(scoretable[0])
         number2.text = "2位 : "+String(scoretable[1])
         number3.text = "3位 : "+String(scoretable[2])
@@ -129,10 +130,12 @@ class KekkaViewController: UIViewController {
     
     
     @IBAction func to_top(_ sender: Any) {
+        fromAppDelegate.option=10
         self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func retryNormal(_ sender: Any) {
+//        print("comingback...")
         fromAppDelegate.option = 1
         defaults.set(1, forKey: "option")
         fromAppDelegate.playerView.center.x = start

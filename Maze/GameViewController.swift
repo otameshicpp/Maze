@@ -11,9 +11,7 @@ import CoreMotion
 
 class GameViewController: UIViewController {
     let fromAppDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-    @IBOutlet weak var count2: UILabel!
-    @IBOutlet weak var count1: UILabel!
-    @IBOutlet weak var count3: UILabel!
+
     @IBOutlet weak var start_label: UILabel!
     @IBOutlet weak var firststar: UILabel!
     @IBOutlet weak var secondstar: UILabel!
@@ -36,8 +34,8 @@ class GameViewController: UIViewController {
     var cellheight: CGFloat = 0.0
     var play_numx: Int = 0
     var play_numy: Int = 0
-    let maze = [
-        [2,0,1,1,1,1,1],
+    let mazebank = [
+        [[2,0,1,1,1,1,1],
         [1,0,1,0,0,0,0],
         [1,0,0,0,1,0,1],
         [1,0,1,1,1,0,0],
@@ -45,10 +43,24 @@ class GameViewController: UIViewController {
         [1,0,1,0,1,1,0],
         [1,0,1,0,0,0,1],
         [1,0,1,1,1,0,0],
-        [1,1,1,1,0,1,0],
+        [1,4,1,1,0,1,0],
         [1,0,0,0,0,3,0],
-        [1,1,1,1,1,1,1]
+        [1,1,1,1,1,1,1]],
+        
+        [[1,1,1,1,1,1,1],
+        [1,0,0,0,0,2,1],
+        [1,0,1,1,1,1,1],
+        [1,0,1,0,0,4,1],
+        [1,0,1,0,1,0,1],
+        [1,0,1,0,1,0,1],
+        [1,0,1,0,1,0,1],
+        [1,0,1,3,1,0,1],
+        [1,0,1,1,1,0,1],
+        [1,0,0,0,0,0,1],
+        [1,1,1,1,1,1,1]]
     ]
+    var cnt=0
+    
     var startView : UIView!
     var goalView : UIView!
     
@@ -58,6 +70,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let maze = mazebank[1]
         firststar.isHidden=true
         secondstar.isHidden=true
         thirdstar.isHidden=true
@@ -68,9 +81,7 @@ class GameViewController: UIViewController {
         let cellOffsetX = cellwidth/2
         let cellOffsetY = cellheight/2
         
-        count1.isHidden=true
-        count2.isHidden=true
-        count3.isHidden=true
+
         start_label.isHidden=true
         
         grayArray.append(gray_maker(x:360.0, y: 61, width: 50, height: 60))
@@ -79,10 +90,13 @@ class GameViewController: UIViewController {
         grayArray[1].backgroundColor=UIColor.gray
         grayArray.append(gray_maker(x:360.0, y: 425, width: 50, height: 60))
         grayArray[2].backgroundColor=UIColor.gray
-        
-        
+
+        var did=false
         for y in 0 ..< maze.count{
             for x in 0 ..< maze[y].count{
+                if !did {
+                    cnt+=1
+                }
                 switch maze[y][x]{
                 case 1:
                     let wallview = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
@@ -122,6 +136,21 @@ class GameViewController: UIViewController {
                     let streetView = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
                     streetView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
                     view.addSubview(streetView)
+                    
+                case 4:
+                    let wallview = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
+                    did=true
+                    
+                    if fromAppDelegate.ok == true{
+                        wallview.backgroundColor=UIColor.purple
+                    }else{
+                       wallview.backgroundColor = UIColor.red
+                    }
+
+                    checkpointX = wallview.center.x
+                    checkpointY = wallview.center.y
+                    view.addSubview(wallview)
+
                 default:
                     break
                 }
@@ -131,8 +160,9 @@ class GameViewController: UIViewController {
 //            view.addSubview(grayArray[i])
 //            self.view.bringSubviewToFront(grayArray[i])
 //        }
-        
-        fromAppDelegate.playerView = UIView(frame: CGRect(x: 0, y: 0, width: cellwidth / 6, height: cellheight/6))
+        view .bringSubviewToFront(grayBack)
+        view .bringSubviewToFront(start_label)
+        fromAppDelegate.playerView = UIView(frame: CGRect(x: 0, y: 0, width: min(cellheight/6,cellwidth / 6), height: min(cellheight/6,cellwidth / 6)))
         fromAppDelegate.playerView.center = startView.center
         fromAppDelegate.playerView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
         view.addSubview(fromAppDelegate.playerView)
@@ -142,46 +172,46 @@ class GameViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
+        fromAppDelegate.playerView.center = startView.center
+//        print("appering")
         fromAppDelegate.clearNum = [0,0,0]
         score=1000.0
-        fromAppDelegate.playerView.center = startView.center
         let option = fromAppDelegate.option
+        print(option)
         if option==2{
-            
-            
-            
                 fromAppDelegate.playerView.center.x = checkpointX
                 fromAppDelegate.playerView.center.y = checkpointY
-            
-            
         }
-        defaults.set(checkpointX, forKey: "checkPointX")
-        defaults.set(checkpointY, forKey: "checkPointY")
-        speedX = 0.0
-        speedY = 0.0
-        count3.isHidden=false
-        grayBack.isHidden=false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            // 0.5秒後に実行したい処理
-            self.count3.isHidden=true
-            self.count2.isHidden=false
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            // 0.5秒後に実行したい処理
-            self.count2.isHidden=true
-            self.count1.isHidden=false
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            // 0.5秒後に実行したい処理
-            self.count1.isHidden=true
-            self.start_label.isHidden=false
-            self.grayBack.isHidden=true
+        if(option != 10){
+            defaults.set(checkpointX, forKey: "checkPointX")
+            defaults.set(checkpointY, forKey: "checkPointY")
+            speedX = 0.0
+            speedY = 0.0
+            start_label.text="3"
+            start_label.isHidden=false;
+            grayBack.isHidden=false
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.start_label.isHidden=true
+                // 0.5秒後に実行したい処理
+                self.start_label.text="2"
+
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                // 0.5秒後に実行したい処理
+                self.start_label.text="1"
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                // 0.5秒後に実行したい処理
+                print("start!")
+                self.start_label.text="Start!"
+                self.grayBack.isHidden=true
                 self.startAcceleormeter()
+    //            print("did")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.start_label.isHidden=true
+
+                }
             }
         }
-        
         
         
     }
@@ -194,7 +224,9 @@ class GameViewController: UIViewController {
     }
     
     func startAcceleormeter(){
+        print(cnt)
         let handler: CMAccelerometerHandler = {(CMAccelerometerData: CMAccelerometerData?, error: Error?) -> Void in
+//            print("running!")
             self.speedX += CMAccelerometerData!.acceleration.x
             
             self.speedY += CMAccelerometerData!.acceleration.y
@@ -229,7 +261,7 @@ class GameViewController: UIViewController {
             for wall in self.wallArray{
                 what_for+=1
                 if wall.frame.intersects(self.fromAppDelegate.playerView.frame){
-                    if what_for==30 {
+                    if what_for==self.cnt {
                         wall.backgroundColor = UIColor.purple
                         self.checkPointOK = true
                         self.fromAppDelegate.ok = true
@@ -249,6 +281,8 @@ class GameViewController: UIViewController {
             }
             if self.goalView.frame.intersects(self.fromAppDelegate.playerView.frame){
                 self.defaults.set(self.score, forKey: "scores4")
+                self.playerMotionManager.stopAccelerometerUpdates()
+                print("kekka")
                 self.performSegue(withIdentifier: "toKekka", sender: nil)
                 
                 return
@@ -258,20 +292,13 @@ class GameViewController: UIViewController {
             self.fromAppDelegate.playerView.center = CGPoint(x: self.posX, y:self.posY)
         }
         
-        for y in 0 ..< maze.count{
-            for x in 0 ..< maze[y].count{
-                if maze[y][x] != 2||maze[y][x] != 3{
-                    
-                }
-            }
-        }
         playerMotionManager.startAccelerometerUpdates(to: OperationQueue.main, withHandler: handler)
     }
     func gamecheck(result: String, message: String){
         if playerMotionManager.isAccelerometerActive {
             playerMotionManager.stopAccelerometerUpdates()
         }
-        
+        print("over\n")
         self.performSegue(withIdentifier: "toGameOver", sender: nil)
         
 //        let gameCheckAlert: UIAlertController = UIAlertController(title: result, message: message, preferredStyle: .alert)
