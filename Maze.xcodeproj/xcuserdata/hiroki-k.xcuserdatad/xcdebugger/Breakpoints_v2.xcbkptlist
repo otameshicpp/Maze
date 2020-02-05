@@ -17,8 +17,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "151"
             endingLineNumber = "151"
-            landmarkName = "retryUsingCheckPoint(_:)"
-            landmarkType = "7">
+            landmarkName = "KekkaViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -41,109 +41,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6DAC8496-77B9-4B79-905F-BC3FF13EBF18"
+            uuid = "1C64914C-27C7-4ACD-A375-10F3D11DAE49"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Maze/GameViewController.swift"
+            filePath = "Maze/GameOverViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
-            landmarkName = "GameViewController"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "6DAC8496-77B9-4B79-905F-BC3FF13EBF18 - 71907954c55ddd87"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Maze.GameViewController.count3.getter : Swift.Optional&lt;__C.UILabel&gt;"
-                  moduleName = "Maze"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hiroki-k/Downloads/Maze%E3%81%AE%E3%82%B3%E3%83%92%E3%82%9A%E3%83%BC/Maze/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "132">
-               </Location>
-               <Location
-                  uuid = "6DAC8496-77B9-4B79-905F-BC3FF13EBF18 - 6978081e2c289913"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Maze.GameViewController.count3.setter : Swift.Optional&lt;__C.UILabel&gt;"
-                  moduleName = "Maze"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hiroki-k/Downloads/Maze%E3%81%AE%E3%82%B3%E3%83%92%E3%82%9A%E3%83%BC/Maze/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "188">
-               </Location>
-               <Location
-                  uuid = "6DAC8496-77B9-4B79-905F-BC3FF13EBF18 - caebe63c1cecfe9a"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Maze.GameViewController.count3.modify : Swift.Optional&lt;__C.UILabel&gt;"
-                  moduleName = "Maze"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hiroki-k/Downloads/Maze%E3%81%AE%E3%82%B3%E3%83%92%E3%82%9A%E3%83%BC/Maze/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "72">
-               </Location>
-               <Location
-                  uuid = "6DAC8496-77B9-4B79-905F-BC3FF13EBF18 - e0fe6c34226406fb"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Maze.GameViewController.count3.modify : Swift.Optional&lt;__C.UILabel&gt; with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "Maze"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hiroki-k/Downloads/Maze%E3%81%AE%E3%82%B3%E3%83%92%E3%82%9A%E3%83%BC/Maze/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "80">
-               </Location>
-               <Location
-                  uuid = "6DAC8496-77B9-4B79-905F-BC3FF13EBF18 - 5ccee8671ae40a11"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Maze.GameViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__C.NSBundle&gt;) -&gt; Maze.GameViewController"
-                  moduleName = "Maze"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hiroki-k/Downloads/Maze%E3%81%AE%E3%82%B3%E3%83%92%E3%82%9A%E3%83%BC/Maze/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "516">
-               </Location>
-               <Location
-                  uuid = "6DAC8496-77B9-4B79-905F-BC3FF13EBF18 - 89ca2491ffd450bb"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Maze.GameViewController.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Maze.GameViewController&gt;"
-                  moduleName = "Maze"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hiroki-k/Downloads/Maze%E3%81%AE%E3%82%B3%E3%83%92%E3%82%9A%E3%83%BC/Maze/GameViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16"
-                  offsetFromSymbolStart = "464">
-               </Location>
-            </Locations>
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "usingCheckPoint(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

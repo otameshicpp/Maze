@@ -46,14 +46,13 @@ class GameOverViewController: UIViewController {
     @IBAction func toGameView(_ sender: Any) {
         useCheckPoint = false
         fromAppDelegate.option=1
-        defaults.set(1, forKey: "option")
         dismiss(animated: true, completion: nil)
         
     }
     @IBAction func usingCheckPoint(_ sender: Any) {
         useCheckPoint = true
         fromAppDelegate.option=2
-        defaults.set(2, forKey: "option")
+        print("入力済み：\(fromAppDelegate.option)")
         dismiss(animated: true, completion: nil)
         
     }

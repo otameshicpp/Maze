@@ -34,6 +34,10 @@ class GameViewController: UIViewController {
     var cellheight: CGFloat = 0.0
     var play_numx: Int = 0
     var play_numy: Int = 0
+    var now_bank: Int = 0
+    var checkpoint: UIView!
+    var playerView: UIView!
+    
     let mazebank = [
         [[2,0,1,1,1,1,1],
         [1,0,1,0,0,0,0],
@@ -57,8 +61,21 @@ class GameViewController: UIViewController {
         [1,0,1,3,1,0,1],
         [1,0,1,1,1,0,1],
         [1,0,0,0,0,0,1],
-        [1,1,1,1,1,1,1]]
+        [1,1,1,1,1,1,1]],
+        
+        [[2,0,0,0,0,0,0],
+        [1,1,1,1,1,1,0],
+        [1,0,1,0,0,0,0],
+        [1,0,0,0,1,0,0],
+        [1,0,1,1,1,0,1],
+        [1,0,0,0,1,0,0],
+        [0,1,1,0,1,1,0],
+        [0,0,0,3,1,4,0],
+        [0,1,1,1,1,1,0],
+        [0,0,0,0,1,0,0],
+        [1,1,1,0,0,0,1]]
     ]
+//   0=road 1=wall 2=start 3=goal 4=checkpoint
     var cnt=0
     
     var startView : UIView!
@@ -70,121 +87,22 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let maze = mazebank[1]
-        firststar.isHidden=true
-        secondstar.isHidden=true
-        thirdstar.isHidden=true
-        fromAppDelegate.option=0
-        cellwidth = screenSize.width / CGFloat(maze[0].count)
-        cellheight = screenSize.height / CGFloat(maze.count)
-        
-        let cellOffsetX = cellwidth/2
-        let cellOffsetY = cellheight/2
-        
 
-        start_label.isHidden=true
-        
-        grayArray.append(gray_maker(x:360.0, y: 61, width: 50, height: 60))
-        grayArray[0].backgroundColor=UIColor.gray
-        grayArray.append(gray_maker(x:360, y: 183, width: 50, height:60))
-        grayArray[1].backgroundColor=UIColor.gray
-        grayArray.append(gray_maker(x:360.0, y: 425, width: 50, height: 60))
-        grayArray[2].backgroundColor=UIColor.gray
-
-        var did=false
-        for y in 0 ..< maze.count{
-            for x in 0 ..< maze[y].count{
-                if !did {
-                    cnt+=1
-                }
-                switch maze[y][x]{
-                case 1:
-                    let wallview = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
-                    
-                    if x == 1 && y == 8{
-                        if fromAppDelegate.ok == true{
-                            wallview.backgroundColor=UIColor.purple
-                        }else{
-                           wallview.backgroundColor = UIColor.red
-                        }
-
-                        checkpointX = wallview.center.x
-                        checkpointY = wallview.center.y
-                        
-                    
-                    }else{
-
-                    wallview.backgroundColor = UIColor.init(red: 0.20, green: 0.14, blue: 0.06, alpha: 1)
-                    }
-                    view.addSubview(wallview)
-                    wallArray.append(wallview)
-
-
-                case 2:
-                    startView = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
-                    startView.backgroundColor = UIColor.init(red: 30/255, green: 100/255, blue: 60/255, alpha: 1)
-                    view.addSubview(startView)
-                    defaults.set(startView.center.x, forKey: "startViewX")
-                    defaults.set(startView.center.y, forKey: "startViewY")
-
-                case 3:
-                    goalView = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
-                    goalView.backgroundColor = UIColor.init(red: 15/255, green: 15/255, blue: 240/255, alpha: 0.7)
-                    view.addSubview(goalView)
-
-                case 0:
-                    let streetView = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
-                    streetView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
-                    view.addSubview(streetView)
-                    
-                case 4:
-                    let wallview = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
-                    did=true
-                    
-                    if fromAppDelegate.ok == true{
-                        wallview.backgroundColor=UIColor.purple
-                    }else{
-                       wallview.backgroundColor = UIColor.red
-                    }
-
-                    checkpointX = wallview.center.x
-                    checkpointY = wallview.center.y
-                    view.addSubview(wallview)
-
-                default:
-                    break
-                }
-            }
-        }
-//        for i in 0 ..< 3{
-//            view.addSubview(grayArray[i])
-//            self.view.bringSubviewToFront(grayArray[i])
-//        }
-        view .bringSubviewToFront(grayBack)
-        view .bringSubviewToFront(start_label)
-        fromAppDelegate.playerView = UIView(frame: CGRect(x: 0, y: 0, width: min(cellheight/6,cellwidth / 6), height: min(cellheight/6,cellwidth / 6)))
-        fromAppDelegate.playerView.center = startView.center
-        fromAppDelegate.playerView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
-        view.addSubview(fromAppDelegate.playerView)
-        playerMotionManager = CMMotionManager()
-        playerMotionManager.accelerometerUpdateInterval = 0.02
     }
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
-        fromAppDelegate.playerView.center = startView.center
+        setUpMaze()
+        playerView.center = startView.center
 //        print("appering")
-        fromAppDelegate.clearNum = [0,0,0]
+        fromAppDelegate.clearNum = 0
         score=1000.0
-        let option = fromAppDelegate.option
-        print(option)
-        if option==2{
-                fromAppDelegate.playerView.center.x = checkpointX
-                fromAppDelegate.playerView.center.y = checkpointY
+
+        print("読み込み時：\(fromAppDelegate.option)\n")
+        if fromAppDelegate.option==2{
+            playerView.center = checkpoint.center
         }
-        if(option != 10){
-            defaults.set(checkpointX, forKey: "checkPointX")
-            defaults.set(checkpointY, forKey: "checkPointY")
+        if(fromAppDelegate.option != 10){
             speedX = 0.0
             speedY = 0.0
             start_label.text="3"
@@ -192,6 +110,7 @@ class GameViewController: UIViewController {
             grayBack.isHidden=false
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 // 0.5秒後に実行したい処理
+                
                 self.start_label.text="2"
 
             }
@@ -224,43 +143,46 @@ class GameViewController: UIViewController {
     }
     
     func startAcceleormeter(){
-        print(cnt)
+//        print(cnt)
         let handler: CMAccelerometerHandler = {(CMAccelerometerData: CMAccelerometerData?, error: Error?) -> Void in
 //            print("running!")
             self.speedX += CMAccelerometerData!.acceleration.x
             
             self.speedY += CMAccelerometerData!.acceleration.y
             
-            self.posX = self.fromAppDelegate.playerView.center.x + (CGFloat(self.speedX)/5)
+            self.speedX/=1
+            self.speedY/=1
+            
+            self.posX = self.playerView.center.x + (CGFloat(self.speedX)/5)
 
             
-            self.posY = self.fromAppDelegate.playerView.center.y - (CGFloat(self.speedY)/5)
+            self.posY = self.playerView.center.y - (CGFloat(self.speedY)/5)
             
-            if self.posX <= self.fromAppDelegate.playerView.frame.width/2{
+            if self.posX <= self.playerView.frame.width/2{
                 self.speedX = 0
-                self.posX = self.fromAppDelegate.playerView.frame.width/2
+                self.posX = self.playerView.frame.width/2
             }
             
-            if self.posY <= self.fromAppDelegate.playerView.frame.height/2{
+            if self.posY <= self.playerView.frame.height/2{
                 self.speedY = 0
-                self.posY = self.fromAppDelegate.playerView.frame.height/2
+                self.posY = self.playerView.frame.height/2
             }
             
-            if self.posX >= self.screenSize.width - (self.fromAppDelegate.playerView.frame.width/2){
+            if self.posX >= self.screenSize.width - (self.playerView.frame.width/2){
                 self.speedX = 0
-                self.posX = self.screenSize.width - (self.fromAppDelegate.playerView.frame.width/2)
+                self.posX = self.screenSize.width - (self.playerView.frame.width/2)
             }
             
-            if self.posY >= self.screenSize.height - (self.fromAppDelegate.playerView.frame.height/2){
+            if self.posY >= self.screenSize.height - (self.playerView.frame.height/2){
                 self.speedY = 0
-                self.posY = self.screenSize.height - (self.fromAppDelegate.playerView.frame.height/2)
+                self.posY = self.screenSize.height - (self.playerView.frame.height/2)
             }
             
             self.score-=0.2
             var what_for: Int = 0
             for wall in self.wallArray{
                 what_for+=1
-                if wall.frame.intersects(self.fromAppDelegate.playerView.frame){
+                if wall.frame.intersects(self.playerView.frame){
                     if what_for==self.cnt {
                         wall.backgroundColor = UIColor.purple
                         self.checkPointOK = true
@@ -271,15 +193,19 @@ class GameViewController: UIViewController {
                     }
                 }
             }
-            var what_g: Int = 0
-            for wall in self.grayArray{
-                what_g+=1
-                if wall.frame.intersects(self.fromAppDelegate.playerView.frame){
-                    self.fromAppDelegate.clearNum[what_g-1]=1
-                }
-                
+            if self.checkpoint.frame.intersects(self.playerView.frame){
+                self.fromAppDelegate.ok=true
+                self.checkpoint.backgroundColor=UIColor.purple
             }
-            if self.goalView.frame.intersects(self.fromAppDelegate.playerView.frame){
+//            var what_g: Int = 0
+//            for wall in self.grayArray{
+//                what_g+=1
+//                if wall.frame.intersects(self.playerView.frame){
+//                    self.fromAppDelegate.clearNum[what_g-1]=1
+//                }
+//
+//            }
+            if self.goalView.frame.intersects(self.playerView.frame){
                 self.defaults.set(self.score, forKey: "scores4")
                 self.playerMotionManager.stopAccelerometerUpdates()
                 print("kekka")
@@ -289,7 +215,7 @@ class GameViewController: UIViewController {
             }
             
             
-            self.fromAppDelegate.playerView.center = CGPoint(x: self.posX, y:self.posY)
+            self.playerView.center = CGPoint(x: self.posX, y:self.posY)
         }
         
         playerMotionManager.startAccelerometerUpdates(to: OperationQueue.main, withHandler: handler)
@@ -319,6 +245,102 @@ class GameViewController: UIViewController {
         let gray_check1:CGRect = CGRect(x:x, y: y, width: width, height: height)
         let gray_view1: UIView = UIView(frame: gray_check1)
         return gray_view1
+    }
+    func removeAllSubviews(parentView: UIView){
+        let subviews = parentView.subviews
+        for subview in subviews {
+            if subview==firststar || subview==secondstar || subview==thirdstar || subview==start_label || subview==grayBack{
+                continue
+            }
+            subview.removeFromSuperview()
+        }
+    }
+    func setUpMaze(){
+        now_bank = Int.random(in: 0...mazebank.count-1)
+//        now_bank=2
+        let maze = mazebank[now_bank]
+        firststar.isHidden=true
+        secondstar.isHidden=true
+        thirdstar.isHidden=true
+
+        cellwidth = screenSize.width / CGFloat(maze[0].count)
+        cellheight = screenSize.height / CGFloat(maze.count)
+        
+        let cellOffsetX = cellwidth/2
+        let cellOffsetY = cellheight/2
+        
+
+        start_label.isHidden=true
+        
+        grayArray.append(gray_maker(x:360.0, y: 61, width: 50, height: 60))
+        grayArray[0].backgroundColor=UIColor.gray
+        grayArray.append(gray_maker(x:360, y: 183, width: 50, height:60))
+        grayArray[1].backgroundColor=UIColor.gray
+        grayArray.append(gray_maker(x:360.0, y: 425, width: 50, height: 60))
+        grayArray[2].backgroundColor=UIColor.gray
+        removeAllSubviews(parentView: view)
+        var did=false
+        wallArray.removeAll()
+        for y in 0 ..< maze.count{
+            for x in 0 ..< maze[y].count{
+                if !did {
+                    cnt+=1
+                }
+                switch maze[y][x]{
+                case 1:
+                    let wallview = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
+                    wallview.backgroundColor = UIColor.init(red: 0.20, green: 0.14, blue: 0.06, alpha: 1)
+                    
+                    view.addSubview(wallview)
+                    wallArray.append(wallview)
+
+
+                case 2:
+                    startView = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
+                    startView.backgroundColor = UIColor.init(red: 30/255, green: 100/255, blue: 60/255, alpha: 1)
+                    view.addSubview(startView)
+
+                case 3:
+                    goalView = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
+                    goalView.backgroundColor = UIColor.init(red: 15/255, green: 15/255, blue: 240/255, alpha: 0.7)
+                    view.addSubview(goalView)
+
+                case 0:
+                    let streetView = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
+                    streetView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.4)
+                    view.addSubview(streetView)
+                    
+                case 4:
+                    checkpoint = creatView(x: x, y: y, width: cellwidth, height: cellheight, offsetX: cellOffsetX, offsetY: cellOffsetY)
+                    did=true
+                    
+                    if fromAppDelegate.ok == true{
+                        checkpoint.backgroundColor=UIColor.purple
+                    }else{
+                       checkpoint.backgroundColor = UIColor.red
+                    }
+
+                    checkpointX = checkpoint.center.x
+                    checkpointY = checkpoint.center.y
+                    view.addSubview(checkpoint)
+
+                default:
+                    break
+                }
+            }
+        }
+//        for i in 0 ..< 3{
+//            view.addSubview(grayArray[i])
+//            self.view.bringSubviewToFront(grayArray[i])
+//        }
+        view .bringSubviewToFront(grayBack)
+        view .bringSubviewToFront(start_label)
+        playerView = UIView(frame: CGRect(x: 0, y: 0, width: min(cellheight/6,cellwidth / 6), height: min(cellheight/6,cellwidth / 6)))
+        playerView.center = startView.center
+        playerView.backgroundColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.8)
+        view.addSubview(playerView)
+        playerMotionManager = CMMotionManager()
+        playerMotionManager.accelerometerUpdateInterval = 0.02
     }
 }
 

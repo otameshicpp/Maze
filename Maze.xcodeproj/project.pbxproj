@@ -13,6 +13,7 @@
 		621BBE582310C1D400D02846 /* KekkaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621BBE572310C1D400D02846 /* KekkaViewController.swift */; };
 		621BBE5A2310C68400D02846 /* スクリーンショット 2019-08-24 10.12.02.png in Resources */ = {isa = PBXBuildFile; fileRef = 621BBE592310C68400D02846 /* スクリーンショット 2019-08-24 10.12.02.png */; };
 		621BBE5C2310C83000D02846 /* スクリーンショット 2019-08-24 10.19.10.png in Resources */ = {isa = PBXBuildFile; fileRef = 621BBE5B2310C83000D02846 /* スクリーンショット 2019-08-24 10.19.10.png */; };
+		621C659823E98BF0000725DE /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621C659723E98BF0000725DE /* SettingViewController.swift */; };
 		62225EFE2311A200000CE814 /* MissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62225EFD2311A200000CE814 /* MissionViewController.swift */; };
 		626FB1D123E035E800CD6866 /* スクリーンショット 2019-08-24 10.19.10のコピー.png in Resources */ = {isa = PBXBuildFile; fileRef = 626FB1D023E035E800CD6866 /* スクリーンショット 2019-08-24 10.19.10のコピー.png */; };
 		6270C850231177AB00912F85 /* RuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6270C84F231177AB00912F85 /* RuleViewController.swift */; };
@@ -57,6 +58,7 @@
 		621BBE572310C1D400D02846 /* KekkaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KekkaViewController.swift; sourceTree = "<group>"; };
 		621BBE592310C68400D02846 /* スクリーンショット 2019-08-24 10.12.02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "スクリーンショット 2019-08-24 10.12.02.png"; sourceTree = "<group>"; };
 		621BBE5B2310C83000D02846 /* スクリーンショット 2019-08-24 10.19.10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "スクリーンショット 2019-08-24 10.19.10.png"; sourceTree = "<group>"; };
+		621C659723E98BF0000725DE /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		62225EFD2311A200000CE814 /* MissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionViewController.swift; sourceTree = "<group>"; };
 		626FB1D023E035E800CD6866 /* スクリーンショット 2019-08-24 10.19.10のコピー.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "スクリーンショット 2019-08-24 10.19.10のコピー.png"; path = "../../スクリーンショット 2019-08-24 10.19.10のコピー.png"; sourceTree = "<group>"; };
 		6270C84F231177AB00912F85 /* RuleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleViewController.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				62225EFD2311A200000CE814 /* MissionViewController.swift */,
 				621BBE572310C1D400D02846 /* KekkaViewController.swift */,
 				62E803D2230E69E2005AC3D5 /* Main.storyboard */,
+				621C659723E98BF0000725DE /* SettingViewController.swift */,
 				6270C84F231177AB00912F85 /* RuleViewController.swift */,
 				62E4DAB32311B886008BFC33 /* NewRankingViewController.swift */,
 				62BAABB2231103EC00491103 /* GameOverViewController.swift */,
@@ -323,6 +326,7 @@
 				6270C850231177AB00912F85 /* RuleViewController.swift in Sources */,
 				621BBE582310C1D400D02846 /* KekkaViewController.swift in Sources */,
 				62E4DAB42311B886008BFC33 /* NewRankingViewController.swift in Sources */,
+				621C659823E98BF0000725DE /* SettingViewController.swift in Sources */,
 				62225EFE2311A200000CE814 /* MissionViewController.swift in Sources */,
 				62E803CF230E69E2005AC3D5 /* AppDelegate.swift in Sources */,
 				62BAABB3231103EC00491103 /* GameOverViewController.swift in Sources */,

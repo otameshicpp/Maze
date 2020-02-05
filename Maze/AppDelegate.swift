@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var playerView: UIView!
     var option:Int = 0
     var ok: Bool = false
-    var clearNum: [Int] = [0,0,0]
+    var clearNum: Int = 0
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.

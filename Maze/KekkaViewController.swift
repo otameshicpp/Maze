@@ -47,13 +47,13 @@ class KekkaViewController: UIViewController {
             usingCheckPointButton.isEnabled = true
             usingCheckPointButton.isHidden = false
         }
-        for i in fromAppDelegate.clearNum{
-            clearnum+=i
-        }
+        clearnum=fromAppDelegate.clearNum
+//        print(<#T##items: Any...##Any#>)
         star1.isHidden=true
         star2.isHidden=true
         star3.isHidden=true
         if fromAppDelegate.option == 2{
+           
             clearnum-=1
         }
         
@@ -104,7 +104,7 @@ class KekkaViewController: UIViewController {
             }
         }, completion: nil)
         UIView.animate(withDuration: 0.3, delay: 1.5, options: .curveEaseOut, animations: {
-            if self.clearnum>0{
+            if self.clearnum>=1{
             self.star1.isHidden=false
             }
         }, completion: nil)
@@ -138,16 +138,14 @@ class KekkaViewController: UIViewController {
 //        print("comingback...")
         fromAppDelegate.option = 1
         defaults.set(1, forKey: "option")
-        fromAppDelegate.playerView.center.x = start
-        fromAppDelegate.playerView.center.y = startY
+
         dismiss(animated: true, completion: nil)
     }
     
     @IBAction func retryUsingCheckPoint(_ sender: Any) {
         fromAppDelegate.option = 2
         defaults.set(2, forKey: "option")
-        fromAppDelegate.playerView.center.x = checkPointX
-        fromAppDelegate.playerView.center.y = checkPointY
+
         dismiss(animated: true, completion: nil)
     }
     /*
