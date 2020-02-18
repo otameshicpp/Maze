@@ -48,7 +48,7 @@ class KekkaViewController: UIViewController {
             usingCheckPointButton.isHidden = false
         }
         clearnum=fromAppDelegate.clearNum
-//        print(<#T##items: Any...##Any#>)
+//        print()
         star1.isHidden=true
         star2.isHidden=true
         star3.isHidden=true
@@ -63,7 +63,9 @@ class KekkaViewController: UIViewController {
         layer_p.frame = view.bounds
         self.view.layer.insertSublayer(layer_p, at:0)
         score = defaults.integer(forKey: "scores4")
-        score+=(200*clearnum)
+        score*=fromAppDelegate.haya;
+        score/=4
+        score=max(score,100)
         scoreLabel.text = "SCORE : " + String(score)
         scoretable[0] = defaults.integer(forKey: "score1")
         scoretable[1] = defaults.integer(forKey: "score2")

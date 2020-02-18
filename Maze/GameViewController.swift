@@ -12,6 +12,7 @@ import CoreMotion
 class GameViewController: UIViewController {
     let fromAppDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
     var feedbackGenerator : UINotificationFeedbackGenerator? = nil
+    let feedbackgenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .light)
     @IBOutlet weak var start_label: UILabel!
     @IBOutlet weak var firststar: UILabel!
     @IBOutlet weak var secondstar: UILabel!
@@ -34,7 +35,7 @@ class GameViewController: UIViewController {
     var cellheight: CGFloat = 0.0
     var play_numx: Int = 0
     var play_numy: Int = 0
-    var now_bank: Int = 0
+//    var now_bank: Int = 0
     var checkpoint: UIView!
     var playerView: UIView!
     
@@ -89,11 +90,12 @@ class GameViewController: UIViewController {
         // Do any additional setup after loading the view.
 
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        self.feedbackGenerator = UINotificationFeedbackGenerator()
-//        self.feedbackGenerator?.prepare()
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.feedbackGenerator = UINotificationFeedbackGenerator()
+        self.feedbackGenerator?.prepare()
+        self.feedbackgenerator.prepare()
+    }
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
@@ -151,12 +153,17 @@ class GameViewController: UIViewController {
 //        print(cnt)
         let handler: CMAccelerometerHandler = {(CMAccelerometerData: CMAccelerometerData?, error: Error?) -> Void in
 //            print("running!")
-            self.speedX += CMAccelerometerData!.acceleration.x
-            
-            self.speedY += CMAccelerometerData!.acceleration.y
-            
-            self.speedX/=self.fromAppDelegate.masa
-            self.speedY/=self.fromAppDelegate.masa
+//            if(self.fromAppDelegate.masa<=1) {
+                self.speedX += CMAccelerometerData!.acceleration.x
+                self.speedY += CMAccelerometerData!.acceleration.y
+                self.speedX/=self.fromAppDelegate.masa
+                self.speedY/=self.fromAppDelegate.masa
+//            }else{
+//                self.speedX += CMAccelerometerData!.acceleration.x*self.fromAppDelegate.masa
+//                self.speedY += CMAccelerometerData!.acceleration.y*self.fromAppDelegate.masa
+//                self.speedX/=self.fromAppDelegate.masa
+//                self.speedY/=self.fromAppDelegate.masa
+//            }
             
             self.posX = self.playerView.center.x + (CGFloat(self.speedX)/5)
 
@@ -201,6 +208,10 @@ class GameViewController: UIViewController {
             if self.checkpoint.frame.intersects(self.playerView.frame){
                 self.fromAppDelegate.ok=true
                 self.checkpoint.backgroundColor=UIColor.purple
+                if !self.fromAppDelegate.did {
+                    self.feedbackgenerator.impactOccurred()
+                    self.fromAppDelegate.did=true
+                }
             }
 //            var what_g: Int = 0
 //            for wall in self.grayArray{
@@ -214,6 +225,7 @@ class GameViewController: UIViewController {
                 self.defaults.set(self.score, forKey: "scores4")
                 self.playerMotionManager.stopAccelerometerUpdates()
                 print("kekka")
+                self.feedbackGenerator?.notificationOccurred(.success)
                 self.performSegue(withIdentifier: "toKekka", sender: nil)
                 
                 return
@@ -230,7 +242,7 @@ class GameViewController: UIViewController {
             playerMotionManager.stopAccelerometerUpdates()
         }
         print("over\n")
-//        self.feedbackGenerator?.notificationOccurred(.error)
+        self.feedbackGenerator?.notificationOccurred(.error)
         self.performSegue(withIdentifier: "toGameOver", sender: nil)
         
 //        let gameCheckAlert: UIAlertController = UIAlertController(title: result, message: message, preferredStyle: .alert)
@@ -262,9 +274,15 @@ class GameViewController: UIViewController {
         }
     }
     func setUpMaze(){
-        now_bank = Int.random(in: 0...mazebank.count-1)
+        let previous: Int=fromAppDelegate.now_bank
+        if(fromAppDelegate.option == 0){
+            while(previous==fromAppDelegate.now_bank){
+                fromAppDelegate.now_bank = Int.random(in: 0...mazebank.count-1)
+            }
+            
+        }
         
-        let maze = mazebank[now_bank]
+        let maze = mazebank[fromAppDelegate.now_bank]
         firststar.isHidden=true
         secondstar.isHidden=true
         thirdstar.isHidden=true
@@ -348,10 +366,10 @@ class GameViewController: UIViewController {
         playerMotionManager = CMMotionManager()
         playerMotionManager.accelerometerUpdateInterval = 0.02
     }
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        // 一応 nil にしておく
-//        self.feedbackGenerator = nil
-//    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // 一応 nil にしておく
+        self.feedbackGenerator = nil
+    }
 }
 

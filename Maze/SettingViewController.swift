@@ -15,7 +15,7 @@ class SettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        ma.value=Float(10-Int((fromAppDelegate.masa-1.09)*100)-9)
+        ma.value=Float(fromAppDelegate.haya)
         
         masalabel.text="プレーヤーの速さ：\(fromAppDelegate.haya+1)"
         
@@ -47,8 +47,8 @@ class SettingViewController: UIViewController {
             fromAppDelegate.haya=Int(ma.value)
         }
         
-        fromAppDelegate.masa = Double(1.09-ma.value*0.01)
-        print(fromAppDelegate.masa)
+        fromAppDelegate.masa = Double(1.09-ma.value*0.02)
+//        print(fromAppDelegate.masa)
         masalabel.text="プレーヤーの速さ：\(fromAppDelegate.haya+1)"
         
     }
