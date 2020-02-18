@@ -11,7 +11,7 @@ import CoreMotion
 
 class GameViewController: UIViewController {
     let fromAppDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-
+    var feedbackGenerator : UINotificationFeedbackGenerator? = nil
     @IBOutlet weak var start_label: UILabel!
     @IBOutlet weak var firststar: UILabel!
     @IBOutlet weak var secondstar: UILabel!
@@ -73,7 +73,7 @@ class GameViewController: UIViewController {
         [0,0,0,3,1,4,0],
         [0,1,1,1,1,1,0],
         [0,0,0,0,1,0,0],
-        [1,1,1,0,0,0,1]]
+        [1,1,1,0,0,0,1]],
     ]
 //   0=road 1=wall 2=start 3=goal 4=checkpoint
     var cnt=0
@@ -89,6 +89,11 @@ class GameViewController: UIViewController {
         // Do any additional setup after loading the view.
 
     }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.feedbackGenerator = UINotificationFeedbackGenerator()
+//        self.feedbackGenerator?.prepare()
+//    }
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
@@ -150,12 +155,12 @@ class GameViewController: UIViewController {
             
             self.speedY += CMAccelerometerData!.acceleration.y
             
-            self.speedX/=1
-            self.speedY/=1
+            self.speedX/=self.fromAppDelegate.masa
+            self.speedY/=self.fromAppDelegate.masa
             
             self.posX = self.playerView.center.x + (CGFloat(self.speedX)/5)
 
-            
+        
             self.posY = self.playerView.center.y - (CGFloat(self.speedY)/5)
             
             if self.posX <= self.playerView.frame.width/2{
@@ -225,6 +230,7 @@ class GameViewController: UIViewController {
             playerMotionManager.stopAccelerometerUpdates()
         }
         print("over\n")
+//        self.feedbackGenerator?.notificationOccurred(.error)
         self.performSegue(withIdentifier: "toGameOver", sender: nil)
         
 //        let gameCheckAlert: UIAlertController = UIAlertController(title: result, message: message, preferredStyle: .alert)
@@ -257,7 +263,7 @@ class GameViewController: UIViewController {
     }
     func setUpMaze(){
         now_bank = Int.random(in: 0...mazebank.count-1)
-//        now_bank=2
+        
         let maze = mazebank[now_bank]
         firststar.isHidden=true
         secondstar.isHidden=true
@@ -342,5 +348,10 @@ class GameViewController: UIViewController {
         playerMotionManager = CMMotionManager()
         playerMotionManager.accelerometerUpdateInterval = 0.02
     }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//        // 一応 nil にしておく
+//        self.feedbackGenerator = nil
+//    }
 }
 

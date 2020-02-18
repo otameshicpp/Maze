@@ -10,7 +10,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="toRaniking" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Maze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,7 +98,7 @@
                                     <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="TNE-19-9Id" kind="presentation" id="CGH-TA-8UZ"/>
+                                    <segue destination="TNE-19-9Id" kind="presentation" modalPresentationStyle="overFullScreen" id="dPV-Et-BLR"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -177,7 +177,7 @@
             <objects>
                 <viewController id="TNE-19-9Id" customClass="SettingViewController" customModule="Maze" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c2q-Dd-wT5">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUh-B5-Z7w">
@@ -189,18 +189,32 @@
                                     <action selector="back:" destination="TNE-19-9Id" eventType="touchUpInside" id="xig-UH-bnn"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="t9t-xu-7te">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="9" minValue="0.0" maxValue="9" translatesAutoresizingMaskIntoConstraints="NO" id="t9t-xu-7te">
                                 <rect key="frame" x="71" y="209" width="232" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="masatsu:" destination="TNE-19-9Id" eventType="valueChanged" id="mzi-K4-n5a"/>
+                                </connections>
                             </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCJ-hU-vko">
+                                <rect key="frame" x="73" y="150" width="195" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="kU4-Ug-JdX"/>
                     </view>
+                    <connections>
+                        <outlet property="ma" destination="t9t-xu-7te" id="Hmp-mV-sPB"/>
+                        <outlet property="masalabel" destination="hCJ-hU-vko" id="suh-aZ-uW1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PFG-hr-7X9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="285.60000000000002" y="124.58770614692655"/>
+            <point key="canvasLocation" x="600.79999999999995" y="124.58770614692655"/>
         </scene>
         <!--Kekka View Controller-->
         <scene sceneID="lV1-xX-R4F">

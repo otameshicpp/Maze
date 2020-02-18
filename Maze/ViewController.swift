@@ -10,21 +10,17 @@ import UIKit
 import CoreMotion
 
 class ViewController: UIViewController {
-      let defaults = UserDefaults.standard
-      let fromAppDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+    let defaults = UserDefaults.standard
+    let fromAppDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
     override func viewDidLoad() {
-        
         super.viewDidLoad()
-        
-
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewDidAppear(animated)
+//        print("hoge")
         fromAppDelegate.option=0
     }
-    
-    
     
 }
 

@@ -9,17 +9,54 @@
 import UIKit
 
 class SettingViewController: UIViewController {
+    @IBOutlet weak var ma: UISlider!
+    @IBOutlet weak var masalabel: UILabel!
+    let feedbackgenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ma.value=Float(10-Int((fromAppDelegate.masa-1.09)*100)-9)
+        
+        masalabel.text="プレーヤーの速さ：\(fromAppDelegate.haya+1)"
+        
         // Do any additional setup after loading the view.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        // インスタンスを生成し prepare() をコール
+
+        self.feedbackgenerator.prepare()
+    }
+    let fromAppDelegate: AppDelegate = UIApplication.shared.delegate as! AppDelegate
     @IBAction func back(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func masatsu(_ sender: Any) {
+        
+//        print(ma.value)
+//        print("\n")
+        let step: Float = 1
+        let roundedValue = round(ma.value/step) * step
+        ma.value = roundedValue
+//        print(ma.value)
+        if Int(ma.value) != fromAppDelegate.haya {
+//            print("\(10-Int((fromAppDelegate.masa-1.0)*100))  \(10-Int((Double(1.1-(ma.value-1.0))-1.0)*100))")
+            self.feedbackgenerator.impactOccurred()
+            fromAppDelegate.haya=Int(ma.value)
+        }
+        
+        fromAppDelegate.masa = Double(1.09-ma.value*0.01)
+        print(fromAppDelegate.masa)
+        masalabel.text="プレーヤーの速さ：\(fromAppDelegate.haya+1)"
+        
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // 一応 nil にしておく
+        
+    }
     /*
     // MARK: - Navigation
 
